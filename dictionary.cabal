@@ -1,0 +1,64 @@
+cabal-version:      3.0
+name:               dictionary
+version:            0.1.0.0
+
+extra-source-files: CHANGELOG.md
+
+common base
+  default-language: GHC2021
+  ghc-options: -Wall
+  default-extensions:
+    BlockArguments
+    DeriveGeneric
+    DerivingStrategies
+    GeneralizedNewtypeDeriving
+    DuplicateRecordFields
+    NoFieldSelectors
+    OverloadedLabels
+    OverloadedStrings
+    LambdaCase
+  build-depends:
+    , base
+    , lens
+    , generic-lens
+    , wreq
+    , containers
+    , aeson
+    , lens-aeson
+    , text
+    , time
+    , bytestring
+    , scalpel-core
+    , regex-base
+    , regex-compat
+    , transformers
+    , mtl
+    , monad-logger-aeson
+
+executable dictionary
+  import: base
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  build-depends:
+    , process
+    , pretty-simple
+    , haskeline
+    , Lib
+
+library Lib
+  import: base
+  hs-source-dirs: lib
+  build-depends:
+    , http-client
+    , process
+    , directory
+    , monad-logger-aeson
+    , exceptions
+    , google-dictionary
+    , brotli
+  exposed-modules:
+    Document
+    Html
+      Html.Internal
+    Http
+    Env
