@@ -44,12 +44,12 @@ getOpts env word =
     & header "Cookie" .~ [env ^. #cookies]
     & header "User-Agent" .~ ["Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0"]
 
-lookupW :: Env -> Text.Text -> IO (Maybe Text)
-lookupW env word = do
+lookupW :: Text.Text -> App (Maybe Text)
+lookupW word = do
+  env <- ask
   let opts = getOpts env word
   liftIO $ getBody <$> getWith opts dictionaryUrl
 
 lookups :: [Text.Text] -> App [Maybe Text]
 lookups texts = do
-  env <- ask
-  liftIO $ traverse (lookupW env) texts
+  traverse lookupW texts
