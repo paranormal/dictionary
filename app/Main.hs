@@ -37,6 +37,6 @@ main = do
     let scraped = documents >>= scrapers
     logDebug $ "The results are:" :# ["scraped" .= scraped]
 
-    let httt = htmls <$> scraped
-    _ <- runReaderT (communicate httt ^. #unApp) env
-    logDebug $ "The htmls are:" :# ["input" .= httt]
+    let results = htmls <$> scraped
+    _ <- runReaderT (communicate results ^. #unApp) env
+    logDebug $ "The htmls are:" :# ["input" .= results]
